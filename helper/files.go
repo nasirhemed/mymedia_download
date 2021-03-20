@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -22,7 +23,7 @@ func downloadChunk(videoId string, chunkFile string) {
 	file, err := os.Create(chunkFile)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer file.Close()
@@ -52,7 +53,7 @@ func WriteChunkList(filename string, chunkList []string) {
 	file, err := os.Create(filename)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	for _, chunk := range chunkList {
@@ -69,7 +70,7 @@ func CleanUp(chunkFiles []string, tempFile string) {
 		err := os.Remove(file)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 	}
 

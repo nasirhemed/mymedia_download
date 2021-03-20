@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"log"
 	"os/exec"
 	"strings"
 )
@@ -12,6 +13,6 @@ func FfmpegCommand(chunkListFile string, videoName string) {
 	err := cmd.Run()
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }

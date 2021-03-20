@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -22,7 +23,7 @@ func GetVideoMetaData(videoId string) VideoMetaData {
 	body := strings.NewReader(bodyString)
 	req, err := http.NewRequest("POST", "https://play.library.utoronto.ca/api/graphql", body)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	req.Header.Set("Authority", "play.library.utoronto.ca")
 	req.Header.Set("Sec-Ch-Ua", "\"Google Chrome\";v=\"89\", \"Chromium\";v=\"89\", \";Not A Brand\";v=\"99\"")
@@ -41,14 +42,14 @@ func GetVideoMetaData(videoId string) VideoMetaData {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	respBody, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	var videoMetaData VideoMetaData
@@ -56,7 +57,7 @@ func GetVideoMetaData(videoId string) VideoMetaData {
 	err = json.Unmarshal(respBody, &videoMetaData)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return videoMetaData
@@ -102,7 +103,7 @@ func GetChunkId(videoId string) string {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
@@ -157,14 +158,14 @@ func GetChunkList(videoId string, chunk string) []string {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
 	respBody, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	respString := string(respBody)
@@ -222,14 +223,14 @@ func GetChunk(videoId string, chunkFile string) []byte {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer resp.Body.Close()
 
 	respBody, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return respBody
