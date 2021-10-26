@@ -20,5 +20,4 @@ For some reason, MyMedia uses a certificate authority that may not be installed 
 mymedia_download --url https://play.library.utoronto.ca https://play.library.utoronto.ca/play/${videoId}
 mymedia_download --url https://play.library.utoronto.ca https://play.library.utoronto.ca/play/${videoId} --output lecture2.mp4
 mymedia_download --url https://play.library.utoronto.ca https://play.library.utoronto.ca/play/${videoId} --insecure
-
 ```
